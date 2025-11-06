@@ -41,6 +41,7 @@
     let score = 0;
     const scoreDisplay = document.getElementById("score");
 
+    // 🥊 ASSET LINKS
     const bananaImage = new Image();
     bananaImage.src = "https://www.pngmart.com/files/22/Cartoon-Banana-PNG-Image.png";
 
@@ -50,13 +51,16 @@
     const splatImage = new Image();
     splatImage.src = "https://static.vecteezy.com/system/resources/previews/015/346/464/original/cartoon-splat-png.png";
 
-    const punchSound = new Audio("https://cdn.pixabay.com/download/audio/2022/03/15/audio_5e5e6b4b7b.mp3?filename=punch-140236.mp3");
+    const punchSound = new Audio("https://cdn.pixabay.com/download/audio/2022/03/15/audio_5e5e6b4b7b.mp3");
 
     let splatReady = false;
-    splatImage.onload = () => { splatReady = true; };
+    splatImage.onload = () => {
+      splatReady = true;
+    };
 
     const balloons = [];
     const splats = [];
+
     let mouseX = canvas.width / 2;
     let mouseY = canvas.height / 2;
     let isPunching = false;
@@ -114,6 +118,7 @@
     function gameLoop() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+      // Draw balloons
       balloons.forEach((balloon, index) => {
         balloon.update();
         balloon.draw();
@@ -122,6 +127,7 @@
         }
       });
 
+      // Draw splats
       splats.forEach((splat, index) => {
         if (splatReady) {
           ctx.save();
@@ -133,9 +139,11 @@
         if (splat.life <= 0) splats.splice(index, 1);
       });
 
+      // Draw glove
       const gloveSize = isPunching ? 80 : 60;
       ctx.drawImage(gloveImage, mouseX - gloveSize / 2, mouseY - gloveSize / 2, gloveSize, gloveSize);
 
+      // Punch animation
       if (punchTimer > 0) {
         punchTimer--;
         if (punchTimer <= 0) isPunching = false;
