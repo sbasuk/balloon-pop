@@ -41,7 +41,6 @@
     let score = 0;
     const scoreDisplay = document.getElementById("score");
 
-    // ✅ CORS-friendly images and sound
     const bananaImage = new Image();
     bananaImage.crossOrigin = "anonymous";
     bananaImage.src = "https://upload.wikimedia.org/wikipedia/commons/8/8a/Banana-Single.jpg";
@@ -119,7 +118,7 @@
     function gameLoop() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Balloons
+      // Draw balloons
       balloons.forEach((balloon, index) => {
         balloon.update();
         balloon.draw();
@@ -128,7 +127,7 @@
         }
       });
 
-      // Splat effect
+      // Draw splats
       splats.forEach((splat, index) => {
         if (splatReady) {
           ctx.save();
@@ -140,7 +139,7 @@
         if (splat.life <= 0) splats.splice(index, 1);
       });
 
-      // Boxing glove
+      // Draw glove
       const gloveSize = isPunching ? 80 : 60;
       ctx.drawImage(gloveImage, mouseX - gloveSize / 2, mouseY - gloveSize / 2, gloveSize, gloveSize);
 
